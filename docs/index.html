@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>No Shorts — Remove YouTube Shorts on iPhone Safari</title>
+  <meta name="description" content="No Shorts is a tiny free open-source userscript that removes YouTube Shorts from Safari on iPhone and iPad while keeping normal YouTube intact." />
+  <meta name="keywords" content="YouTube Shorts blocker, iPhone Safari YouTube Shorts, remove YouTube Shorts, disable YouTube Shorts, userscript, iOS Safari" />
+  <meta name="robots" content="index,follow" />
+  <link rel="canonical" href="https://mithatakbulut.github.io/noshorts/" />
+
+  <meta property="og:title" content="No Shorts — YouTube without Shorts" />
+  <meta property="og:description" content="A tiny free open-source userscript that removes YouTube Shorts on iPhone Safari." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://mithatakbulut.github.io/noshorts/" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="No Shorts — YouTube without Shorts" />
+  <meta name="twitter:description" content="Remove YouTube Shorts on iPhone Safari with one tiny open-source userscript." />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "No Shorts",
+    "applicationCategory": "BrowserApplication",
+    "operatingSystem": "iOS, iPadOS, macOS, Windows, Linux",
+    "description": "A tiny free open-source userscript that removes YouTube Shorts while keeping normal YouTube intact.",
+    "url": "https://mithatakbulut.github.io/noshorts/",
+    "downloadUrl": "https://raw.githubusercontent.com/mithatakbulut/noshorts/main/noshorts.user.js",
+    "isAccessibleForFree": true,
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "license": "https://opensource.org/license/mit"
+  }
+  </script>
+
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: #0b0b0c;
+      --panel: #151517;
+      --text: #f5f5f5;
+      --muted: #a7a7ad;
+      --line: #2a2a2e;
+      --accent: #ffffff;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.55;
+    }
+
+    a { color: inherit; }
+    .wrap { width: min(920px, calc(100% - 40px)); margin: 0 auto; }
+    nav { display: flex; justify-content: space-between; align-items: center; padding: 28px 0; }
+    .brand { font-weight: 700; letter-spacing: -0.02em; text-decoration: none; }
+    .nav-link { color: var(--muted); text-decoration: none; font-size: 14px; }
+
+    .hero { padding: 92px 0 72px; }
+    .eyebrow { color: var(--muted); font-size: 14px; margin-bottom: 16px; }
+    h1 { font-size: clamp(52px, 9vw, 92px); line-height: .95; letter-spacing: -0.065em; margin: 0; max-width: 800px; }
+    .lead { margin: 30px 0 0; font-size: clamp(19px, 3vw, 26px); color: var(--muted); max-width: 690px; letter-spacing: -0.02em; }
+
+    .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 34px; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; min-height: 46px; padding: 0 18px; border: 1px solid var(--line); border-radius: 10px; text-decoration: none; font-weight: 600; font-size: 14px; }
+    .btn-primary { background: var(--accent); color: #0b0b0c; border-color: var(--accent); }
+    .btn-secondary { background: var(--panel); }
+
+    .strip { display: grid; grid-template-columns: repeat(4, 1fr); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; margin: 30px 0 82px; }
+    .strip div { padding: 18px; border-right: 1px solid var(--line); font-size: 14px; }
+    .strip div:last-child { border-right: 0; }
+    .strip strong { display: block; margin-bottom: 3px; }
+    .strip span { color: var(--muted); }
+
+    section { padding: 54px 0; border-top: 1px solid var(--line); }
+    h2 { font-size: 30px; letter-spacing: -0.035em; margin: 0 0 22px; }
+    p { color: var(--muted); }
+
+    .steps { display: grid; gap: 12px; }
+    .step { display: grid; grid-template-columns: 44px 1fr; gap: 16px; padding: 20px; border: 1px solid var(--line); border-radius: 12px; background: var(--panel); }
+    .num { font-variant-numeric: tabular-nums; color: var(--muted); }
+    .step strong { display: block; margin-bottom: 5px; }
+    .step p { margin: 0; }
+
+    pre { white-space: pre-wrap; word-break: break-word; margin: 0; padding: 20px; border: 1px solid var(--line); border-radius: 12px; background: var(--panel); color: var(--text); font: 14px/1.55 ui-monospace, SFMono-Regular, Menlo, monospace; }
+
+    .features { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .feature { border: 1px solid var(--line); border-radius: 12px; padding: 20px; }
+    .feature strong { display: block; margin-bottom: 5px; }
+    .feature span { color: var(--muted); font-size: 14px; }
+
+    footer { padding: 42px 0 54px; color: var(--muted); font-size: 13px; }
+
+    @media (max-width: 680px) {
+      .hero { padding-top: 60px; }
+      .strip { grid-template-columns: 1fr 1fr; }
+      .strip div:nth-child(2) { border-right: 0; }
+      .strip div:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
+      .features { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <nav>
+      <a class="brand" href="./">No Shorts</a>
+      <a class="nav-link" href="https://github.com/mithatakbulut/noshorts">GitHub ↗</a>
+    </nav>
+
+    <main>
+      <div class="hero">
+        <div class="eyebrow">Free · Open source · One userscript</div>
+        <h1>YouTube.<br />Without Shorts.</h1>
+        <p class="lead">Remove YouTube Shorts from Safari on iPhone and iPad while keeping normal videos, search, channels, subscriptions, and comments.</p>
+
+        <div class="actions">
+          <a class="btn btn-primary" href="https://raw.githubusercontent.com/mithatakbulut/noshorts/main/noshorts.user.js">View userscript</a>
+          <a class="btn btn-secondary" href="https://github.com/mithatakbulut/noshorts">View source</a>
+        </div>
+      </div>
+
+      <div class="strip" aria-label="Project highlights">
+        <div><strong>$0</strong><span>Free forever</span></div>
+        <div><strong>No account</strong><span>Nothing to sign up for</span></div>
+        <div><strong>No Xcode</strong><span>No sideloading</span></div>
+        <div><strong>MIT</strong><span>Open source</span></div>
+      </div>
+
+      <section>
+        <h2>Install on iPhone</h2>
+        <div class="steps">
+          <div class="step"><div class="num">01</div><div><strong>Install Userscripts</strong><p>Install the Userscripts Safari extension from the App Store and enable it in Safari.</p></div></div>
+          <div class="step"><div class="num">02</div><div><strong>Add noshorts.user.js</strong><p>Add the userscript to Userscripts and allow it to run on youtube.com.</p></div></div>
+          <div class="step"><div class="num">03</div><div><strong>Open YouTube in Safari</strong><p>Normal YouTube stays intact. Shorts links, shelves, and routes are removed.</p></div></div>
+        </div>
+      </section>
+
+      <section>
+        <h2>Or ask ChatGPT</h2>
+        <p>Paste this into ChatGPT and let it walk you through the setup:</p>
+        <pre>Help me install No Shorts on my iPhone using the Userscripts Safari app.
+Here's the project: https://github.com/mithatakbulut/noshorts</pre>
+      </section>
+
+      <section>
+        <h2>What it removes</h2>
+        <div class="features">
+          <div class="feature"><strong>Shorts feed</strong><span>Hides Shorts shelves and cards from YouTube pages.</span></div>
+          <div class="feature"><strong>/shorts routes</strong><span>Stops navigation into the infinite Shorts viewer.</span></div>
+          <div class="feature"><strong>Dynamic Shorts UI</strong><span>Handles content inserted later by YouTube's SPA.</span></div>
+          <div class="feature"><strong>Nothing else</strong><span>Regular videos, search, channels and subscriptions keep working.</span></div>
+        </div>
+      </section>
+
+      <section>
+        <h2>Why?</h2>
+        <p>YouTube does not provide a permanent setting to disable Shorts. No Shorts is intentionally tiny: it solves that one problem without replacing YouTube or adding another subscription.</p>
+      </section>
+    </main>
+
+    <footer>
+      No Shorts is an independent open-source project and is not affiliated with YouTube or Google. MIT licensed.
+    </footer>
+  </div>
+</body>
+</html>
