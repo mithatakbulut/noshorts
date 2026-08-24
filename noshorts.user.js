@@ -1,8 +1,12 @@
 // ==UserScript==
 // @name         No Shorts
-// @namespace    com.local.noshorts
+// @namespace    https://github.com/mithatakbulut/noshorts
 // @version      0.1.0
-// @description  Keeps normal YouTube, removes YouTube Shorts.
+// @description  Removes YouTube Shorts while keeping normal YouTube intact. Works on iPhone Safari and desktop browsers.
+// @author       Mithat Akbulut
+// @license      MIT
+// @homepageURL  https://github.com/mithatakbulut/noshorts
+// @supportURL   https://github.com/mithatakbulut/noshorts/issues
 // @match        *://youtube.com/*
 // @match        *://*.youtube.com/*
 // @run-at       document-start
