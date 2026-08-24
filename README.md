@@ -13,6 +13,23 @@ No Xcode. No sideloading. No developer account. No subscription.
 
 ## iPhone / iPad setup
 
+### Option A — Ask ChatGPT
+
+Don't want to figure out the setup yourself? Ask ChatGPT to walk you through it step by step.
+
+Open ChatGPT and send:
+
+```text
+Help me install No Shorts on my iPhone using the Userscripts Safari app.
+Here's the project: https://github.com/mithatakbulut/noshorts
+```
+
+ChatGPT can guide you through installing Userscripts, enabling the Safari extension, adding `noshorts.user.js`, and granting access to `youtube.com`.
+
+> Note: the GitHub repository must be public for ChatGPT to read it without access to your GitHub account.
+
+### Option B — Manual installation
+
 1. Install the **Userscripts** Safari extension from the App Store.
 2. Enable Userscripts in Safari.
 3. Add `noshorts.user.js` to Userscripts.
