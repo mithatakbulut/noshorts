@@ -26,8 +26,6 @@ Here's the project: https://github.com/mithatakbulut/noshorts
 
 ChatGPT can guide you through installing Userscripts, enabling the Safari extension, adding `noshorts.user.js`, and granting access to `youtube.com`.
 
-> Note: the GitHub repository must be public for ChatGPT to read it without access to your GitHub account.
-
 ### Option B — Manual installation
 
 1. Install the **Userscripts** Safari extension from the App Store.
