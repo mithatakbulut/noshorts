@@ -1,176 +1,111 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>No Shorts — Remove YouTube Shorts on iPhone Safari</title>
-  <meta name="description" content="No Shorts is a tiny free open-source userscript that removes YouTube Shorts from Safari on iPhone and iPad while keeping normal YouTube intact." />
-  <meta name="keywords" content="YouTube Shorts blocker, iPhone Safari YouTube Shorts, remove YouTube Shorts, disable YouTube Shorts, userscript, iOS Safari" />
-  <meta name="robots" content="index,follow" />
-  <link rel="canonical" href="https://mithatakbulut.github.io/noshorts/" />
-
-  <meta property="og:title" content="No Shorts — YouTube without Shorts" />
-  <meta property="og:description" content="A tiny free open-source userscript that removes YouTube Shorts on iPhone Safari." />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://mithatakbulut.github.io/noshorts/" />
-
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="No Shorts — YouTube without Shorts" />
-  <meta name="twitter:description" content="Remove YouTube Shorts on iPhone Safari with one tiny open-source userscript." />
-
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#f6f5ef">
+  <title>NoShorts — Less feed. More intention.</title>
+  <meta name="description" content="Two small tools for a quieter YouTube: remove Shorts, set a daily watch-time budget, or use both. Free, open source, and made for iPhone Safari.">
+  <link rel="canonical" href="https://mithatakbulut.github.io/noshorts/">
+  <meta property="og:title" content="NoShorts — Less feed. More intention.">
+  <meta property="og:description" content="Keep the useful parts of YouTube. Remove Shorts, choose a daily watch-time budget, or use both.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://mithatakbulut.github.io/noshorts/">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="NoShorts — Less feed. More intention.">
+  <meta name="twitter:description" content="Two independent, free tools for a quieter YouTube. Made for iPhone Safari.">
+  <link rel="stylesheet" href="./assets/site.css">
+  <script src="./assets/site.js" defer></script>
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "No Shorts",
-    "applicationCategory": "BrowserApplication",
-    "operatingSystem": "iOS, iPadOS, macOS, Windows, Linux",
-    "description": "A tiny free open-source userscript that removes YouTube Shorts while keeping normal YouTube intact.",
-    "url": "https://mithatakbulut.github.io/noshorts/",
-    "downloadUrl": "https://raw.githubusercontent.com/mithatakbulut/noshorts/main/noshorts.user.js",
-    "isAccessibleForFree": true,
-    "offers": {
-      "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "USD"
-    },
-    "license": "https://opensource.org/license/mit"
-  }
+  {"@context":"https://schema.org","@type":"SoftwareApplication","name":"NoShorts","applicationCategory":"BrowserApplication","operatingSystem":"iOS, iPadOS, macOS, Windows, Linux","description":"Two independently installable userscripts: a YouTube Shorts blocker and a daily watch-time limiter.","url":"https://mithatakbulut.github.io/noshorts/","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"license":"https://opensource.org/license/mit","codeRepository":"https://github.com/mithatakbulut/noshorts"}
   </script>
-
-  <style>
-    :root {
-      color-scheme: light dark;
-      --bg: #0b0b0c;
-      --panel: #151517;
-      --text: #f5f5f5;
-      --muted: #a7a7ad;
-      --line: #2a2a2e;
-      --accent: #ffffff;
-    }
-
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body {
-      margin: 0;
-      min-height: 100vh;
-      font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.55;
-    }
-
-    a { color: inherit; }
-    .wrap { width: min(920px, calc(100% - 40px)); margin: 0 auto; }
-    nav { display: flex; justify-content: space-between; align-items: center; padding: 28px 0; }
-    .brand { font-weight: 700; letter-spacing: -0.02em; text-decoration: none; }
-    .nav-link { color: var(--muted); text-decoration: none; font-size: 14px; }
-
-    .hero { padding: 92px 0 72px; }
-    .eyebrow { color: var(--muted); font-size: 14px; margin-bottom: 16px; }
-    h1 { font-size: clamp(52px, 9vw, 92px); line-height: .95; letter-spacing: -0.065em; margin: 0; max-width: 800px; }
-    .lead { margin: 30px 0 0; font-size: clamp(19px, 3vw, 26px); color: var(--muted); max-width: 690px; letter-spacing: -0.02em; }
-
-    .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 34px; }
-    .btn { display: inline-flex; align-items: center; justify-content: center; min-height: 46px; padding: 0 18px; border: 1px solid var(--line); border-radius: 10px; text-decoration: none; font-weight: 600; font-size: 14px; }
-    .btn-primary { background: var(--accent); color: #0b0b0c; border-color: var(--accent); }
-    .btn-secondary { background: var(--panel); }
-
-    .strip { display: grid; grid-template-columns: repeat(4, 1fr); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; margin: 30px 0 82px; }
-    .strip div { padding: 18px; border-right: 1px solid var(--line); font-size: 14px; }
-    .strip div:last-child { border-right: 0; }
-    .strip strong { display: block; margin-bottom: 3px; }
-    .strip span { color: var(--muted); }
-
-    section { padding: 54px 0; border-top: 1px solid var(--line); }
-    h2 { font-size: 30px; letter-spacing: -0.035em; margin: 0 0 22px; }
-    p { color: var(--muted); }
-
-    .steps { display: grid; gap: 12px; }
-    .step { display: grid; grid-template-columns: 44px 1fr; gap: 16px; padding: 20px; border: 1px solid var(--line); border-radius: 12px; background: var(--panel); }
-    .num { font-variant-numeric: tabular-nums; color: var(--muted); }
-    .step strong { display: block; margin-bottom: 5px; }
-    .step p { margin: 0; }
-
-    pre { white-space: pre-wrap; word-break: break-word; margin: 0; padding: 20px; border: 1px solid var(--line); border-radius: 12px; background: var(--panel); color: var(--text); font: 14px/1.55 ui-monospace, SFMono-Regular, Menlo, monospace; }
-
-    .features { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
-    .feature { border: 1px solid var(--line); border-radius: 12px; padding: 20px; }
-    .feature strong { display: block; margin-bottom: 5px; }
-    .feature span { color: var(--muted); font-size: 14px; }
-
-    footer { padding: 42px 0 54px; color: var(--muted); font-size: 13px; }
-
-    @media (max-width: 680px) {
-      .hero { padding-top: 60px; }
-      .strip { grid-template-columns: 1fr 1fr; }
-      .strip div:nth-child(2) { border-right: 0; }
-      .strip div:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
-      .features { grid-template-columns: 1fr; }
-    }
-  </style>
 </head>
 <body>
-  <div class="wrap">
-    <nav>
-      <a class="brand" href="./">No Shorts</a>
-      <a class="nav-link" href="https://github.com/mithatakbulut/noshorts">GitHub ↗</a>
-    </nav>
-
-    <main>
-      <div class="hero">
-        <div class="eyebrow">Free · Open source · One userscript</div>
-        <h1>YouTube.<br />Without Shorts.</h1>
-        <p class="lead">Remove YouTube Shorts from Safari on iPhone and iPad while keeping normal videos, search, channels, subscriptions, and comments.</p>
-
-        <div class="actions">
-          <a class="btn btn-primary" href="https://raw.githubusercontent.com/mithatakbulut/noshorts/main/noshorts.user.js">View userscript</a>
-          <a class="btn btn-secondary" href="https://github.com/mithatakbulut/noshorts">View source</a>
-        </div>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="site-header wrap">
+    <a class="brand" href="./" aria-label="NoShorts home"><svg viewBox="0 0 28 28" width="28" height="28" aria-hidden="true"><path d="M5 22V6l18 16V6" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/><path d="M3 25 25 3" stroke="currentColor" stroke-width="2"/></svg>NoShorts<span class="brand-dot">.</span></a>
+    <nav aria-label="Main navigation"><a href="#tools">The tools</a><a href="#install">Get started</a><a class="github-link" href="https://github.com/mithatakbulut/noshorts">GitHub <span aria-hidden="true">↗</span></a></nav>
+  </header>
+  <main id="main">
+    <section class="hero wrap" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="small-dot"></span> A quieter kind of YouTube</p>
+        <h1 id="hero-title">Less feed.<br>More <em>intention.</em></h1>
+        <p class="hero-lead">Come for a video.<br>Leave when you meant to.</p>
+        <p class="hero-description">Remove Shorts. Give your watching a daily limit. Two small tools, yours to use separately or together.</p>
+        <a class="button primary" href="#tools">Choose your tools <span aria-hidden="true">↘</span></a>
+        <p class="hero-note">Free & open source · Made for iPhone Safari</p>
       </div>
-
-      <div class="strip" aria-label="Project highlights">
-        <div><strong>$0</strong><span>Free forever</span></div>
-        <div><strong>No account</strong><span>Nothing to sign up for</span></div>
-        <div><strong>No Xcode</strong><span>No sideloading</span></div>
-        <div><strong>MIT</strong><span>Open source</span></div>
+      <div class="hero-visual">
+        <div class="browser-demo" aria-label="Illustrative YouTube preview">
+          <div class="browser-top"><span class="browser-dots" aria-hidden="true">● ● ●</span><span>youtube.com</span><span aria-hidden="true">↗</span></div>
+          <div class="demo-player">
+            <div class="film-art" aria-hidden="true"><span class="film-kicker">A little perspective</span><span class="film-title">Good things<br>take attention.</span><span class="film-orbit"></span><span class="film-bottom">FIELD NOTES &nbsp; / &nbsp; 001</span></div>
+            <button class="timer" type="button" data-open-preview aria-label="Preview the NoShorts time drawer">◷ 22 mins left</button>
+            <div class="player-controls" aria-hidden="true"><span>Ⅱ</span><span>06:18 / 18:42</span><span class="control-track"></span><span>⛶</span></div>
+          </div>
+          <div class="demo-video-info"><strong>Make time for what interests you.</strong><span>A useful video. A little more space in your day.</span></div>
+          <div class="quiet-feed"><span class="removed-icon" aria-hidden="true">↳</span><div><strong>A feed with room to breathe.</strong><span>Shorts removed by the optional blocker.</span></div><span class="quiet-check" aria-hidden="true">✓</span></div>
+        </div>
+        <p class="visual-caption"><span aria-hidden="true">↖</span> Tap the timer to see the new drawer.<span class="sample-label">Illustrative preview · sample data</span></p>
+        <div class="visual-note"><span aria-hidden="true">◷</span> A small reminder.<br>Then back to your video.</div>
       </div>
+    </section>
+    <div class="principles wrap" aria-label="Project principles"><span>No account.</span><span>No subscription.</span><span>No viewing analytics.</span><span>Just a little less YouTube.</span></div>
 
-      <section>
-        <h2>Install on iPhone</h2>
-        <div class="steps">
-          <div class="step"><div class="num">01</div><div><strong>Install Userscripts</strong><p>Install the Userscripts Safari extension from the App Store and enable it in Safari.</p></div></div>
-          <div class="step"><div class="num">02</div><div><strong>Add noshorts.user.js</strong><p>Add the userscript to Userscripts and allow it to run on youtube.com.</p></div></div>
-          <div class="step"><div class="num">03</div><div><strong>Open YouTube in Safari</strong><p>Normal YouTube stays intact. Shorts links, shelves, and routes are removed.</p></div></div>
+    <section class="tools wrap section-space" id="tools" aria-labelledby="tools-title">
+      <div class="section-heading"><p class="eyebrow">01 / Your choice</p><h2 id="tools-title">Two tools.<br>Different jobs.</h2><p>You don’t have to change everything.<br>Start with the part you want to change.</p></div>
+      <div class="tool-grid">
+        <article class="tool tool-shorts">
+          <div class="tool-top"><span class="tool-number">01</span><span class="pill">Shorts blocker</span></div>
+          <h3>Skip the<br>infinite detour.</h3>
+          <p>Remove Shorts shelves, cards, and links. Keep the videos, channels, and conversations you came for.</p>
+          <ul><li>Hides Shorts throughout your feed</li><li>Stops navigation into the Shorts viewer</li><li>Leaves regular YouTube videos available</li></ul>
+          <a class="button secondary" href="https://raw.githubusercontent.com/mithatakbulut/noshorts/main/noshorts.user.js">Get the Shorts blocker <span aria-hidden="true">↓</span></a>
+          <code>noshorts.user.js</code>
+        </article>
+        <article class="tool tool-limit">
+          <div class="tool-top"><span class="tool-number">02</span><span class="pill">Watch-time limiter</span></div>
+          <h3>A little time.<br>A clear stopping point.</h3>
+          <p>Choose how much YouTube fits into your day. Count real playback, see where your time went, and stop when your budget is used.</p>
+          <ul><li>A quiet timer in the video’s top-right corner</li><li>Daily history and a 7 / 30-day line chart</li><li>Limit changes start tomorrow once you watch</li></ul>
+          <a class="button primary" href="https://raw.githubusercontent.com/mithatakbulut/noshorts/main/youtube-limit.user.js">Get the time limiter <span aria-hidden="true">↓</span></a>
+          <code>youtube-limit.user.js</code>
+        </article>
+      </div>
+      <p class="tools-footnote">Each is independently installable. Use one, or install both for Shorts-free browsing with a daily budget.</p>
+    </section>
+
+    <section class="widget-section section-space" id="preview" aria-labelledby="widget-title">
+      <div class="wrap widget-grid">
+        <div class="widget-copy"><p class="eyebrow">02 / A glance, not a dashboard</p><h2 id="widget-title">Know where<br>your time went.</h2><p class="section-lead">A small timer while you watch.<br>The details when you want them.</p>
+          <ol class="detail-list"><li><span>01</span><div><h3>Quietly in the corner.</h3><p>The faint timer sits inside the video, away from YouTube’s search button. Tap it to open your details.</p></div></li><li><span>02</span><div><h3>Your day, in view.</h3><p>Watched time, minutes remaining, and the hours until your allowance renews at local midnight.</p></div></li><li><span>03</span><div><h3>A little perspective.</h3><p>See daily totals on a line chart. Scroll your video history, with the most recently watched first.</p></div></li></ol>
+          <button class="text-button" type="button" data-open-preview>Take a closer look <span aria-hidden="true">↗</span></button>
         </div>
-      </section>
+        <figure class="drawer-figure"><div class="screenshot-shell"><img src="./assets/widget-drawer.png" width="390" height="760" alt="Example of the NoShorts drawer: 38 minutes watched, 22 minutes remaining, a renewal countdown, a daily watch-time line chart, and recent videos." loading="lazy"></div><figcaption>Actual limiter interface · illustrative viewing history</figcaption></figure>
+      </div>
+    </section>
 
-      <section>
-        <h2>Or ask ChatGPT</h2>
-        <p>Paste this into ChatGPT and let it walk you through the setup:</p>
-        <pre>Help me install No Shorts on my iPhone using the Userscripts Safari app.
-Here's the project: https://github.com/mithatakbulut/noshorts</pre>
-      </section>
+    <section class="rules wrap section-space" aria-labelledby="rules-title"><p class="eyebrow">03 / A limit that means something</p><div class="rules-grid"><h2 id="rules-title">Decide before<br>you press play.</h2><div><p class="section-lead">Choose 15 minutes, 30 minutes, an hour, two hours—or your own budget from 5 minutes to 4 hours.</p><p>Once you start watching, today’s limit is locked. Change your mind in settings, and the new limit starts tomorrow. At zero, playback pauses. You can still search, browse, and read comments.</p><p class="rule-note">No “add ten minutes.” No reset button.<br>A fresh allowance at the next local midnight.</p></div></div></section>
 
-      <section>
-        <h2>What it removes</h2>
-        <div class="features">
-          <div class="feature"><strong>Shorts feed</strong><span>Hides Shorts shelves and cards from YouTube pages.</span></div>
-          <div class="feature"><strong>/shorts routes</strong><span>Stops navigation into the infinite Shorts viewer.</span></div>
-          <div class="feature"><strong>Dynamic Shorts UI</strong><span>Handles content inserted later by YouTube's SPA.</span></div>
-          <div class="feature"><strong>Nothing else</strong><span>Regular videos, search, channels and subscriptions keep working.</span></div>
-        </div>
-      </section>
+    <section class="install-section section-space" id="install" aria-labelledby="install-title"><div class="wrap"><div class="section-heading"><p class="eyebrow">04 / A few minutes to get set up</p><h2 id="install-title">Your iPhone.<br>Your Safari. Your choice.</h2><p>Runs on YouTube in Safari through the Userscripts extension.<br>Desktop userscript managers work too.</p></div>
+      <ol class="install-steps"><li><span>01</span><h3>Get Userscripts.</h3><p>Install <a href="https://apps.apple.com/app/userscripts/id1463298887">Userscripts from the App Store ↗</a>. Open it and choose a scripts folder in Files.</p></li><li><span>02</span><h3>Pick one. Or both.</h3><p>Download your chosen <a href="#tools">script files</a> into that folder. Keep the <code>.user.js</code> ending—send the files themselves, not text pasted into Notes.</p></li><li><span>03</span><h3>Allow it in Safari.</h3><p>In Settings → Apps → Safari → Extensions, enable Userscripts. Grant access to YouTube, then refresh your YouTube tab.</p></li></ol>
+      <div class="setup-note"><strong>Only seeing your old script?</strong><p>Check that the new file is in the folder selected in Userscripts. In Files, download it from iCloud if needed, and make sure its name doesn’t end in <code>.txt</code>.</p></div>
+      <div class="help-row"><p>Prefer a walkthrough?</p><button class="text-button" id="copy-help" type="button">Copy a setup prompt for ChatGPT <span aria-hidden="true">↗</span></button><span id="copy-status" role="status"></span></div>
+      <details class="prompt-fallback"><summary>Show the setup prompt</summary><pre id="setup-prompt">Help me install NoShorts on my iPhone using the Userscripts Safari extension. I want to choose between its Shorts blocker and daily watch-time limiter, or install both. Guide me through saving the .user.js files and enabling them on YouTube. Project: https://github.com/mithatakbulut/noshorts</pre></details>
+    </div></section>
 
-      <section>
-        <h2>Why?</h2>
-        <p>YouTube does not provide a permanent setting to disable Shorts. No Shorts is intentionally tiny: it solves that one problem without replacing YouTube or adding another subscription.</p>
-      </section>
-    </main>
-
-    <footer>
-      No Shorts is an independent open-source project and is not affiliated with YouTube or Google. MIT licensed.
-    </footer>
-  </div>
+    <section class="faq wrap section-space" aria-labelledby="faq-title"><div class="section-heading"><p class="eyebrow">A few good questions</p><h2 id="faq-title">Small tools.<br>Clear boundaries.</h2></div><div class="faq-list">
+      <details><summary>Do I need both scripts?</summary><p>No. The Shorts blocker removes Shorts. The time limiter manages normal video playback with a daily budget. Neither depends on the other.</p></details>
+      <details><summary>Does this work inside the YouTube app?</summary><p>No. Use YouTube in Safari on iPhone or iPad. On desktop, use a userscript manager with the supported GM storage APIs. See the <a href="https://github.com/mithatakbulut/noshorts#desktop-installation">desktop instructions</a>.</p></details>
+      <details><summary>What counts as watching?</summary><p>Actual playback of normal videos on YouTube watch pages. Pausing, browsing, seeking, and buffering do not consume your budget. At 2× speed, a real minute still counts as one minute. Background playback counts while Safari continues running the script.</p></details>
+      <details><summary>Where does my history go?</summary><p>It stays in your userscript manager’s local storage. No viewing analytics or external account. History thumbnails load from YouTube. Data is not automatically shared across devices or browser profiles.</p></details>
+      <details><summary>What should I know about iPhone Safari?</summary><p>Native fullscreen can hide custom overlays. iOS may suspend the script in the background; long suspension gaps are discarded to avoid phantom watch time, which can undercount playback. Multiple tabs can briefly overshoot a budget. Real-device compatibility checks are ongoing.</p></details>
+      <details><summary>Can I get around the limit?</summary><p>This is a tool for your own intentions, not a tamper-proof lock. Changing settings after playback won’t extend today’s budget, but disabling the script, clearing storage, or changing your device clock can bypass it. <a href="https://github.com/mithatakbulut/noshorts#platform-limitations">Read the limitations</a>.</p></details>
+    </div></section>
+    <section class="closing wrap"><p class="eyebrow">Keep the useful parts.</p><h2>Make a little<br>room for <em>everything else.</em></h2><a class="button primary" href="#tools">Choose your tools <span aria-hidden="true">↑</span></a></section>
+  </main>
+  <footer class="wrap"><a class="brand" href="./">NoShorts.</a><p>Independent. Open source. A little less endless.<br>Not affiliated with YouTube or Google.</p><a href="https://github.com/mithatakbulut/noshorts">Source & documentation ↗</a><span>MIT licensed</span></footer>
+  <dialog id="widget-dialog" aria-labelledby="preview-title"><div class="preview-heading"><div><p class="eyebrow">NoShorts / Time limiter</p><h2 id="preview-title">A closer look.</h2></div><button class="close-preview" type="button" aria-label="Close widget preview">Close <span aria-hidden="true">×</span></button></div><p class="preview-description">The actual drawer, with sample viewing history. The website does not track your watching.</p><img src="./assets/widget-drawer.png" width="390" height="760" alt="NoShorts time drawer showing the daily budget, renewal countdown, seven-day chart, and scrollable recent videos."></dialog>
 </body>
 </html>

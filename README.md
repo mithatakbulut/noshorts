@@ -84,6 +84,8 @@ node --test tests/browser.cjs
 
 It uses a synthetic YouTube page and a shared mocked GM API, exercises the distributed userscript, checks onboarding/settings, wall-clock tracking, duplicate-free SPA rebinding, cross-tab exhaustion, reload persistence, mobile/desktop layout, and Escape dismissal. It saves a demo screenshot to `/tmp/noshorts-mobile.png` (override with `NOSHORTS_SCREENSHOT`). Synthetic browser tests do not establish compatibility with the live YouTube DOM or iOS Userscripts.
 
+The GitHub Pages landing page lives in `docs/`, with buildless styles/scripts under `docs/assets/`. Its widget screenshot is captured from the actual limiter using explicitly illustrative history. Run `node --test tests/site.cjs` with Playwright available to check mobile/desktop layout, separate downloads, preview focus behavior, and the setup-prompt fallback.
+
 For screenshots/demo recordings, use a separate test profile: capture onboarding, the indicator during playback, the history sheet in light/dark mode, a scheduled setting, and the exhausted overlay. Do not clear a real user's history to stage a demo.
 
 Real-device verification still required:
