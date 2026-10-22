@@ -16,8 +16,8 @@ test('landing page separates both tools and works on mobile and desktop', async 
       await route.fulfill({ contentType: types[path.extname(suffix)], body: await readFile(path.join(docs, suffix)) });
     });
     await page.goto('https://mithatakbulut.github.io/noshorts/');
-    assert.match(await page.title(), /Less feed/);
-    await page.getByRole('heading', { name: 'Two tools. Different jobs.' }).waitFor();
+    assert.match(await page.title(), /YouTube, on your terms/);
+    await page.getByRole('heading', { name: 'Two tools. Use either. Or both.' }).waitFor();
     assert.match(await page.getByRole('link', { name: 'Get the Shorts blocker' }).getAttribute('href'), /\/noshorts.user.js$/);
     assert.match(await page.getByRole('link', { name: 'Get the time limiter' }).getAttribute('href'), /\/youtube-limit.user.js$/);
     assert.equal(await page.locator('img').evaluateAll(nodes => nodes.every(img => img.complete && img.naturalWidth > 0)), true);
