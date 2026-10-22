@@ -93,11 +93,11 @@ test('Shadow DOM onboarding, SPA rebinding, tracking, persistent blocking, and m
     await page.getByRole('button', { name: 'Last 30 days' }).click();
     assert.equal(await page.locator('#chart circle').count(), 30);
     await page.getByRole('button', { name: 'Last 7 days' }).click();
-    const indicatorStyle = await page.locator('#indicator').evaluate(node => ({ opacity: Number(getComputedStyle(node).opacity), top: parseFloat(getComputedStyle(node).top), right: parseFloat(getComputedStyle(node).right) }));
+    const indicatorStyle = await page.locator('#indicator').evaluate(node => ({ opacity: Number(getComputedStyle(node).opacity), top: parseFloat(getComputedStyle(node).top), left: parseFloat(getComputedStyle(node).left) }));
     assert.ok(indicatorStyle.opacity <= 0.65);
     const videoBox = await page.locator('video').boundingBox();
     assert.equal(indicatorStyle.top, videoBox.y + 12);
-    assert.equal(indicatorStyle.right, 390 - videoBox.x - videoBox.width + 12);
+    assert.equal(indicatorStyle.left, videoBox.x + 12);
     await page.evaluate(() => { document.querySelector('#player').style.transform = 'translateY(-400px)'; dispatchEvent(new Event('scroll')); });
     assert.equal(await page.locator('#indicator').isHidden(), true);
     await page.evaluate(() => { document.querySelector('#player').style.transform = ''; dispatchEvent(new Event('scroll')); });
@@ -111,7 +111,7 @@ test('Shadow DOM onboarding, SPA rebinding, tracking, persistent blocking, and m
     await page.evaluate(() => { const player = document.querySelector('#player'); player.style.width = '720px'; player.style.marginLeft = '140px'; dispatchEvent(new Event('resize')); });
     const desktopVideo = await page.locator('video').boundingBox();
     const badge = await page.locator('#indicator').boundingBox();
-    assert.equal(Math.round(badge.x + badge.width), Math.round(desktopVideo.x + desktopVideo.width - 12));
+    assert.equal(Math.round(badge.x), Math.round(desktopVideo.x + 12));
     assert.equal(Math.round(badge.y), Math.round(desktopVideo.y + 12));
     await page.keyboard.press('Escape'); await dialog.waitFor({ state: 'hidden' });
     assert.deepEqual(errors, []);
