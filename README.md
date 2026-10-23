@@ -2,6 +2,12 @@
 
 **Keep the useful parts of YouTube. Remove the addictive parts.**
 
+
+
+https://github.com/user-attachments/assets/ca99c8db-9fdb-4ede-9fdb-0f59eb2f5667
+
+
+
 Two small, independently installable userscripts. No build step, account, subscription, backend, or external JavaScript.
 
 - [`noshorts.user.js`](noshorts.user.js) hides Shorts shelves and cards, blocks `/shorts/` navigation, and handles YouTube's SPA updates. The original blocker is unchanged.
